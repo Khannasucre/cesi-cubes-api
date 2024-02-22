@@ -23,3 +23,11 @@ CREATE TABLE `articles` (
   `idarticle` int PRIMARY KEY,
   `numeroarticle` int
 );
+
+CREATE TABLE `domaines` (
+  `iddomaine` int PRIMARY KEY,
+  `nomdomaine` varchar(50),
+  `adressedomaine` varchar(50),
+  `numerodomaine` varchar(50)
+);
+
