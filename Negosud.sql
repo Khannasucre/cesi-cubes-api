@@ -1,50 +1,50 @@
-CREATE TABLE `clients` (
-  `idclient` int PRIMARY KEY,
-  `nomclient` varchar(50),
-  `prenomclient` varchar(50),
-  `adresseclient` varchar(50),
-  `numeroclient` varchar(50)
+CREATE TABLE `client` (
+  `id` int PRIMARY KEY,
+  `nom` varchar(50),
+  `prenom` varchar(50),
+  `adresse` varchar(50),
+  `numero` varchar(50)
 );
 
-CREATE TABLE `fournisseurs` (
-  `idfournisseur` int PRIMARY KEY,
-  `nomfournisseur` varchar(50),
-  `adressefournisseur` varchar(50),
-  `numerofournisseur` varchar(50)
+CREATE TABLE `fournisseur` (
+  `id` int PRIMARY KEY,
+  `nom` varchar(50),
+  `adresse` varchar(50),
+  `numero` varchar(50),
+  `idarticle` int
 );
 
-CREATE TABLE `familles` (
-  `idfamille` int PRIMARY KEY,
-  `nomvin` varchar(50),
-  `quantite` INT,
-  `prixvin` varchar(50),
-  `idfournisseur` int,
+CREATE TABLE `famille` (
+  `id` int PRIMARY KEY,
+  `nom` varchar(50),
+  `description` varchar(255)
+);
+
+CREATE TABLE `article` (
+  `id` int PRIMARY KEY,
+  `nom` varchar(50),
+  `prixunite` int,
+  `prixpack` int,
+  `paysproduction` varchar(50),
+  `regionproduction` varchar(50),
+  `anneeproduction` int,
+  `quantite` int,
+  `quantiteminimum` int,
+  `idfamille` int,
   `iddomaine` int
 );
 
-CREATE TABLE `articles` (
-  `idarticle` int PRIMARY KEY,
-  `numeroarticle` int,
-  `prixarcticle` varchar(50),
-  `idfamille` int,
-  `idclient` int
-);
-
-CREATE TABLE `domaines` (
-  `iddomaine` int PRIMARY KEY,
-  `nomdomaine` varchar(50),
-  `adressedomaine` varchar(50),
-  `numerodomaine` varchar(50),
+CREATE TABLE `domaine` (
+  `id` int PRIMARY KEY,
+  `nom` varchar(50),
+  `adresse` varchar(50),
+  `numero` varchar(50),
   `idfournisseur` int
 );
 
-ALTER TABLE `articles` ADD FOREIGN KEY (`idfamille`) REFERENCES `familles` (`idfamille`);
+ALTER TABLE `article` ADD FOREIGN KEY (`idfamille`) REFERENCES `famille` (`id`);
 
-ALTER TABLE `domaines` ADD FOREIGN KEY (`idfournisseur`) REFERENCES `fournisseurs` (`idfournisseur`);
+ALTER TABLE `fournisseur` ADD FOREIGN KEY (`idarticle`) REFERENCES `article` (`id`);
 
-ALTER TABLE `familles` ADD FOREIGN KEY (`idfournisseur`) REFERENCES `fournisseurs` (`idfournisseur`);
-
-ALTER TABLE `articles` ADD FOREIGN KEY (`idclient`) REFERENCES `clients` (`idclient`);
-
-ALTER TABLE `familles` ADD FOREIGN KEY (`iddomaine`) REFERENCES `domaines` (`iddomaine`);
+ALTER TABLE `article` ADD FOREIGN KEY (`iddomaine`) REFERENCES `domaine` (`id`);
 
